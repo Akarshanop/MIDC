@@ -22,7 +22,7 @@ const districtLatLng: Record<string, [number, number]> = {
 
 export function LeafletMap({
   points,
-  height = 460,
+  height = 380,
   onSelectDistrict,
 }: {
   points: MapPoint[];
@@ -31,9 +31,15 @@ export function LeafletMap({
 }) {
   const ref = useRef<HTMLDivElement | null>(null);
   const mapRef = useRef<any>(null);
+  const onSelectDistrictRef = useRef(onSelectDistrict);
+
+  useEffect(() => {
+    onSelectDistrictRef.current = onSelectDistrict;
+  }, [onSelectDistrict]);
 
   useEffect(() => {
     let cancelled = false;
+    let resizeObserver: ResizeObserver | null = null;
     if (!ref.current) return;
     (async () => {
       const L = (await import("leaflet")).default;
@@ -47,6 +53,7 @@ export function LeafletMap({
         6.3,
       );
       mapRef.current = map;
+      requestAnimationFrame(() => map.invalidateSize());
       L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
         attribution:
           '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
@@ -84,28 +91,36 @@ export function LeafletMap({
         marker.bindPopup(popup);
         marker.on("popupopen", () => {
           const btn = document.getElementById(`midc-d-${p.district}`);
-          if (btn) btn.onclick = () => onSelectDistrict?.(p.district);
+          if (btn) btn.onclick = () => onSelectDistrictRef.current?.(p.district);
         });
         marker.on("click", () => marker.openPopup());
       });
 
       // Restrict pan
       map.setMaxBounds(L.latLngBounds([14.5, 71.5], [22.5, 81.5]));
+
+      resizeObserver = new ResizeObserver(() => {
+        requestAnimationFrame(() => map.invalidateSize());
+      });
+      resizeObserver.observe(ref.current);
+
+      map.once("load", () => map.invalidateSize());
     })();
     return () => {
       cancelled = true;
+      resizeObserver?.disconnect();
       if (mapRef.current) {
         mapRef.current.remove();
         mapRef.current = null;
       }
     };
-  }, [points, onSelectDistrict]);
+  }, [points]);
 
   return (
     <div
       ref={ref}
-      style={{ height, width: "100%", borderRadius: 12, overflow: "hidden" }}
-      className="border border-border"
+      style={{ height }}
+      className="relative z-0 h-full w-full min-w-0 overflow-hidden rounded-xl border border-border [&_.leaflet-container]:h-full [&_.leaflet-container]:w-full"
     />
   );
 }
