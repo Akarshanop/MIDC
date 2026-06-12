@@ -129,7 +129,7 @@ export function CopilotPanel({ open, onClose }: { open: boolean; onClose: () => 
 
   return (
     <aside
-      className={`fixed right-0 top-0 z-40 h-screen w-full max-w-[440px] transform border-l border-border bg-white shadow-2xl transition-transform duration-300 ease-out ${
+      className={`fixed right-0 top-0 z-[1500] h-screen w-full max-w-[440px] transform border-l border-border bg-white shadow-2xl transition-transform duration-300 ease-out ${
         open ? "translate-x-0" : "translate-x-full"
       }`}
     >

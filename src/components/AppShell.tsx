@@ -93,7 +93,6 @@ export function AppShell({ children }: { children: ReactNode }) {
           </div>
           <div className="min-w-0 leading-tight">
             <div className="truncate text-[13px] font-bold tracking-tight">MIDC</div>
-            <div className="truncate text-[10px] uppercase tracking-wider text-sidebar-foreground/60">AI Command</div>
           </div>
         </Link>
 
@@ -174,13 +173,13 @@ export function AppShell({ children }: { children: ReactNode }) {
                 </div>
               )}
             </div>
-            {/* <button
+            <button
               onClick={() => setCopilotOpen((o) => !o)}
               className="group flex h-9 items-center gap-2 rounded-lg bg-[var(--gradient-midnight)] px-3 text-[12px] font-medium text-white shadow-lg shadow-midnight/20 transition hover:shadow-xl"
             >
               <Sparkles className="h-3.5 w-3.5 text-saffron" />
               AI Copilot
-            </button> */}
+            </button>
             <button onClick={() => setNotifOpen(true)} className="relative grid h-9 w-9 place-items-center rounded-lg border border-border bg-white text-muted-foreground transition hover:text-foreground">
               <Bell className="h-4 w-4" />
               <span className="absolute right-1.5 top-1.5 h-2 w-2 animate-pulse rounded-full bg-saffron ring-2 ring-white" />
@@ -216,15 +215,17 @@ export function AppShell({ children }: { children: ReactNode }) {
 
       <CopilotPanel open={copilotOpen} onClose={() => setCopilotOpen(false)} />
 
-      {/* {!copilotOpen && (
-        <button
-          onClick={() => setCopilotOpen(true)}
-          className="fixed bottom-6 right-6 z-30 grid h-14 w-14 place-items-center rounded-full bg-[var(--gradient-saffron)] text-white shadow-2xl shadow-orange-500/40 transition hover:scale-105 animate-pulse-ring"
-          aria-label="Open AI Copilot"
-        >
-          <Sparkles className="h-5 w-5" />
-        </button>
-      )} */}
+      <button
+        onClick={() => setCopilotOpen((o) => !o)}
+        className={`fixed bottom-6 z-[1600] grid h-14 w-14 place-items-center rounded-full text-white shadow-2xl transition-all hover:scale-105 ${
+          copilotOpen
+            ? "right-[460px] bg-midnight shadow-midnight/40"
+            : "right-6 bg-[var(--gradient-saffron)] shadow-orange-500/40 animate-pulse-ring"
+        }`}
+        aria-label={copilotOpen ? "Close AI Copilot" : "Open AI Copilot"}
+      >
+        {copilotOpen ? <X className="h-5 w-5" /> : <Sparkles className="h-5 w-5" />}
+      </button>
 
       <Drawer open={notifOpen} onClose={() => setNotifOpen(false)} title="Notifications" subtitle={`${NOTIFS.length} active alerts`} width={420}>
         <div className="space-y-2">

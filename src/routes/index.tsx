@@ -3,6 +3,8 @@ import { investors, fmtCr, fmtNum, type Investor } from "@/lib/midc-data";
 import { Card, SectionHeader, Stat, Badge } from "@/components/ui-kit";
 import { LeafletMap } from "@/components/LeafletMap";
 import { Drawer } from "@/components/Drawer";
+import { PlatformSources } from "@/components/PlatformSources";
+
 import {
   Users,
   TrendingUp,
@@ -106,6 +108,8 @@ function InvestorIntelligence() {
 
   return (
     <div>
+
+
       <SectionHeader
         eyebrow="Section 01 · Investor Intelligence"
         title="Investor engagement lifecycle, in real time"
@@ -127,6 +131,12 @@ function InvestorIntelligence() {
           <Stat label="Priority Sector" value={fmtNum(priority)} delta="EV · Semi · Pharma" icon={Sparkles} tone="midnight" />
         </button>
       </div>
+
+      {/* Live data sources */}
+      <div className="mt-5">
+        <PlatformSources />
+      </div>
+
 
       {/* Funnel + Insight */}
       <div className="mt-5 grid gap-4 lg:grid-cols-3">

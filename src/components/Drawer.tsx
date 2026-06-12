@@ -18,7 +18,7 @@ export function Drawer({
 }) {
   if (!open) return null;
   return (
-    <div className="fixed inset-0 z-50">
+    <div className="fixed inset-0 z-[2000]">
       <div className="absolute inset-0 bg-midnight/40 backdrop-blur-sm" onClick={onClose} />
       <aside
         className="absolute right-0 top-0 h-full overflow-y-auto bg-white shadow-2xl animate-float-up"

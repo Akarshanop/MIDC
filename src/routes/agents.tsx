@@ -1,6 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { Card, SectionHeader, Stat, Badge } from "@/components/ui-kit";
 import { Bot, Network, Activity, Zap, Brain, Send, BarChart3, GitBranch, ArrowRight } from "lucide-react";
+import { ExecutiveOverview } from "@/components/ExecutiveOverview";
 import { scenarios } from "@/lib/midc-data";
 
 export const Route = createFileRoute("/agents")({
@@ -35,11 +36,14 @@ function AgentCommand() {
 
   return (
     <div>
+      <ExecutiveOverview />
+
       <SectionHeader
         eyebrow="Section 04 · Agent Command Center"
         title="Autonomous agents, observable end-to-end"
         description="Every investor query flows through a coordinated mesh of AI agents on Airgen.ai. Monitor health, throughput and decisions in real time."
       />
+
 
       <div className="grid grid-cols-2 gap-3 md:grid-cols-4">
         <Stat label="Agents Online" value="5 / 5" icon={Bot} tone="success" />
