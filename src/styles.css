@@ -190,3 +190,20 @@
   background-size: 200% 100%;
   animation: shimmer 2.4s linear infinite;
 }
+
+.midc-leaflet-shell {
+  position: relative;
+  z-index: 0;
+  isolation: isolate;
+  contain: layout paint;
+  width: 100%;
+  min-width: 0;
+  max-width: 100%;
+  overflow: hidden;
+  border-radius: 0.75rem;
+}
+
+.midc-leaflet-shell.leaflet-container {
+  width: 100% !important;
+  max-width: 100% !important;
+}

@@ -41,7 +41,7 @@ export function Card({
   right?: ReactNode;
 }) {
   return (
-    <div className={`rounded-2xl border border-border bg-card shadow-[var(--shadow-glass)] ${className}`}>
+    <div className={`isolate min-w-0 overflow-hidden rounded-2xl border border-border bg-card shadow-[var(--shadow-glass)] ${className}`}>
       {(title || right) && (
         <div className="flex items-start justify-between gap-3 border-b border-border/60 px-5 py-4">
           <div className="min-w-0">
@@ -51,7 +51,7 @@ export function Card({
           {right}
         </div>
       )}
-      <div className="p-5">{children}</div>
+      <div className="min-w-0 overflow-hidden p-5">{children}</div>
     </div>
   );
 }
