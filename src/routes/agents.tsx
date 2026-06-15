@@ -36,7 +36,6 @@ function AgentCommand() {
 
   return (
     <div>
-      <ExecutiveOverview />
 
       <SectionHeader
         eyebrow="Section 04 · Agent Command Center"
@@ -158,6 +157,8 @@ function AgentCommand() {
           </div>
         </Card>
       </div>
+
+      <ExecutiveOverview />
     </div>
   );
 }
